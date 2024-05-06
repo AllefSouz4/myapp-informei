@@ -35,7 +35,7 @@ function ChildModal() {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
+        <Box sx={{ ...style, width: 800, height: 400,}}>
           <h2 id="child-modal-title">Escolha o dia</h2>
           <p id="child-modal-description">
             Dia a escolher.
@@ -65,11 +65,13 @@ export default function NestedModal() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 400 }}>
-          <h2 id="parent-modal-title">Corte com degradê</h2>
-          <p id="parent-modal-description">
-            Valor R$ 20,00
-          </p>
+        <Box sx={{ ...style, width: 800, height: 400, }}>
+          <section>
+            <h2 id="parent-modal-title">Corte com degradê</h2>
+              <p id="parent-modal-description">
+              Valor R$ 20,00
+              </p>
+          </section>
           <ChildModal />
         </Box>
       </Modal>
