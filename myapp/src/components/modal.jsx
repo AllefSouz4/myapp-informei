@@ -1,7 +1,11 @@
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -17,7 +21,7 @@ const style = {
   pb: 3,
 };
 
-function ChildModal() {
+function ChildModal({servico}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -26,8 +30,31 @@ function ChildModal() {
     setOpen(false);
   };
 
+
+  const enviarAgendamento = () => {
+
+
+
+    const form = {
+      id_servico: servico,
+      nome,
+      email,
+      celular,
+      dataAgendada: dataServico
+    }
+
+
+    // agendamentoService.save(form).then().cacth()
+  }
+
+  const [dataServico, setDataAgendamento] = useState(null)
+  const [nome, setNome] = useState('')
+  const [email, setEmail] = useState('')
+  const [celular, setCelular] = useState('')
+
+//Criar Fromulario para pegar Nome, email e contato
   return (
-    <React.Fragment>
+    <Fragment>
       <Button onClick={handleOpen}>Confirmar Agendamento </Button>
       <Modal
         open={open}
@@ -35,26 +62,51 @@ function ChildModal() {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 800, height: 400,}}>
+        <Box sx={{ ...style, width: 800, height: 400, }}>
           <h2 id="child-modal-title">Escolha o dia</h2>
           <p id="child-modal-description">
             Dia a escolher.
           </p>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar value={dataServico} onChange={(newValue) => {console.log(newValue);setDataAgendamento(newValue)}} />
+          </LocalizationProvider>
+
+
+          
+
           <Button onClick={handleClose}>Confirmar Agendamento </Button>
         </Box>
       </Modal>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
 export default function NestedModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [servico, setServico] = useState(0)
+ 
+ 
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+
+  const servicos = [
+    {
+      titulo: 'Barba',
+      preco: 'R$12,50',
+      id: 1
+    },
+    {
+      titulo: 'Degradê',
+      preco: 'R$40,00',
+      id: 2
+    }
+  ]
 
   return (
     <div>
@@ -67,12 +119,19 @@ export default function NestedModal() {
       >
         <Box sx={{ ...style, width: 800, height: 400, }}>
           <section>
-            <h2 id="parent-modal-title">Corte com degradê</h2>
-              <p id="parent-modal-description">
-              Valor R$ 20,00
-              </p>
+            {servicos.map((item) =>
+
+              <div key={item.id} >
+                <h2 id="parent-modal-title">{item.titulo}</h2>
+                <p id="parent-modal-description">
+                  Valor {item.preco}
+                </p>
+                <button onClick={()=> setServico(item.id)}>Selecionar serviço</button>
+              </div>
+            )}
+
           </section>
-          <ChildModal />
+          <ChildModal servico={servico}/>
         </Box>
       </Modal>
     </div>
