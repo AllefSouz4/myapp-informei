@@ -54,7 +54,7 @@ function ChildModal({servico}) {
 
 //Criar Fromulario para pegar Nome, email e contato
   return (
-    <Fragment>
+    <Fragment className= 'Modalfilho'>
       <Button onClick={handleOpen}>Confirmar Agendamento </Button>
       <Modal
         open={open}
@@ -62,7 +62,7 @@ function ChildModal({servico}) {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 800, height: 400, }}>
+        <Box sx={{ ...style, width: 1000, height: 500, }}>
           <h2 id="child-modal-title">Escolha o dia</h2>
           <p id="child-modal-description">
             Dia a escolher.
@@ -109,7 +109,7 @@ export default function NestedModal() {
   ]
 
   return (
-    <div>
+    <div className='ModalPai'>
       <Button onClick={handleOpen}>Agendamento </Button>
       <Modal
         open={open}
@@ -117,7 +117,7 @@ export default function NestedModal() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 800, height: 400, }}>
+        <Box sx={{ ...style, width: 1000, height: 500, }}>
           <section>
             {servicos.map((item) =>
 
