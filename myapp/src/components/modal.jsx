@@ -21,7 +21,7 @@ const style = {
   pb: 3,
 };
 
-function ChildModal({servico}) {
+function ChildModal({ servico }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -30,31 +30,26 @@ function ChildModal({servico}) {
     setOpen(false);
   };
 
-
   const enviarAgendamento = () => {
-
-
-
     const form = {
       id_servico: servico,
       nome,
       email,
       celular,
-      dataAgendada: dataServico
-    }
-
+      dataAgendada: dataServico,
+    };
 
     // agendamentoService.save(form).then().cacth()
-  }
+  };
 
-  const [dataServico, setDataAgendamento] = useState(null)
-  const [nome, setNome] = useState('')
-  const [email, setEmail] = useState('')
-  const [celular, setCelular] = useState('')
+  const [dataServico, setDataAgendamento] = useState(null);
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [celular, setCelular] = useState('');
 
-//Criar Fromulario para pegar Nome, email e contato
+  //Criar Fromulario para pegar Nome, email e contato
   return (
-    <Fragment className= 'Modalfilho'>
+    <Fragment className="Modalfilho">
       <Button onClick={handleOpen}>Confirmar Agendamento </Button>
       <Modal
         open={open}
@@ -62,18 +57,19 @@ function ChildModal({servico}) {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 1000, height: 500, }}>
+        <Box sx={{ ...style, width: 1000, height: 500 }}>
           <h2 id="child-modal-title">Escolha o dia</h2>
-          <p id="child-modal-description">
-            Dia a escolher.
-          </p>
+          <p id="child-modal-description">Dia a escolher.</p>
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar value={dataServico} onChange={(newValue) => {console.log(newValue);setDataAgendamento(newValue)}} />
+            <DateCalendar
+              value={dataServico}
+              onChange={(newValue) => {
+                console.log(newValue);
+                setDataAgendamento(newValue);
+              }}
+            />
           </LocalizationProvider>
-
-
-          
 
           <Button onClick={handleClose}>Confirmar Agendamento </Button>
         </Box>
@@ -84,9 +80,7 @@ function ChildModal({servico}) {
 
 export default function NestedModal() {
   const [open, setOpen] = useState(false);
-  const [servico, setServico] = useState(0)
- 
- 
+  const [servico, setServico] = useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -99,17 +93,17 @@ export default function NestedModal() {
     {
       titulo: 'Barba',
       preco: 'R$12,50',
-      id: 1
+      id: 1,
     },
     {
       titulo: 'Degradê',
       preco: 'R$40,00',
-      id: 2
-    }
-  ]
+      id: 2,
+    },
+  ];
 
   return (
-    <div className='ModalPai'>
+    <div className="ModalPai">
       <Button onClick={handleOpen}>Agendamento </Button>
       <Modal
         open={open}
@@ -117,21 +111,19 @@ export default function NestedModal() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 1000, height: 500, }}>
+        <Box sx={{ ...style, width: 1000, height: 500 }}>
           <section>
-            {servicos.map((item) =>
-
-              <div key={item.id} >
+            {servicos.map((item) => (
+              <div key={item.id}>
                 <h2 id="parent-modal-title">{item.titulo}</h2>
-                <p id="parent-modal-description">
-                  Valor {item.preco}
-                </p>
-                <button onClick={()=> setServico(item.id)}>Selecionar serviço</button>
+                <p id="parent-modal-description">Valor {item.preco}</p>
+                <button onClick={() => setServico(item.id)}>
+                  Selecionar serviço
+                </button>
               </div>
-            )}
-
+            ))}
           </section>
-          <ChildModal servico={servico}/>
+          <ChildModal servico={servico} />
         </Box>
       </Modal>
     </div>
